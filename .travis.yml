@@ -7,3 +7,25 @@ before_install: #setup before running tests
 
 script: # commands to run test suite, any status codes != 0, travis will fail
   - docker run anthonyferro/docker-react npm run test -- --coverage # override CMD with npm run tests (-- --coverage runs tests/exits automatically without hanging)
+
+deploy:  # configuration to deploy to AWS
+  provider: elasticbeanstalk # travis CI pre-configured to deploy to certain things
+  region: "us-east-2"       #AWS region , from aws
+  app: "docker" #name of app from aws
+  env: "Docker-env" #env name also from aws
+  bucket_name: "elasticbeanstalk-us-east-2-789392775764"  # travis copies files (zip file) to s3 bucket (harddirve on aws) 
+  bucket_path: "docker" # default to the app name before a deploy has run
+  on: # only attempt to deploy when master gets new code
+    branch: master
+    # api keys 
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY"" # stored in travis env vars
+
+
+
+
+
+
+
+  # Docker-env.apvqaft3ky.us-east-2.elasticbeanstalk.com
