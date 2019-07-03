@@ -1,0 +1,9 @@
+sudo: required #need super user permissions
+services:
+  - docker #automatically installs docker on travis 
+
+before_install: #setup before running tests
+  - docker build -t anthonyferro/docker-react -f Dockerfile.dev . # . uses current directory
+
+script: # commands to run test suite, any status codes != 0, travis will fail
+  - docker run anthonyferro/docker-react npm run test -- --coverage # override CMD with npm run tests (-- --coverage runs tests/exits automatically without hanging)
