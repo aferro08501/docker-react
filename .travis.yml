@@ -6,7 +6,7 @@ before_install: #setup before running tests
   - docker build -t anthonyferro/docker-react -f Dockerfile.dev . # . uses current directory
 
 script: # commands to run test suite, any status codes != 0, travis will fail
-  - docker run anthonyferro/docker-react npm run ci_test -- -coverage # override CMD with npm run tests (-- --coverage runs tests/exits automatically without hanging)
+  - docker run anthonyferro/docker-react npm run ci_test -- --coverage # override CMD with npm run tests (-- --coverage runs tests/exits automatically without hanging)
 
 deploy:  # configuration to deploy to AWS
   provider: elasticbeanstalk # travis CI pre-configured to deploy to certain things
