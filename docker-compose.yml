@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:                        # . here wont find dockerfile
+      context: .                 #where we want files/folders to be pulled from
+      dockerfile: Dockerfile.dev #look in current dir, find that file, use to build image
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules # dont try to map a folder against app/node_modues in container
+      - .:/app               # current folder outside container maps to /app inside container
+  tests:    #create test container
+    build:                        # . here wont find dockerfile
+      context: .                 #where we want files/folders to be pulled from
+      dockerfile: Dockerfile.dev #look in current dir, find that file, use to build image
+    volumes:
+      - /app/node_modules         # dont try to map a folder against app/node_modues in container
+      - .:/app 
+    command: ["npm", "run", "test"]
